@@ -10,7 +10,7 @@ const StyledToolbar = styled(Toolbar) ({
     justifyContent: "space-between",
 });
 
-const Search = styled("div") (({theme}) => ({
+const Search = styled("div") ((theme) => ({
     backgroundColor:"white",
     padding: "0 10px",
     borderRadius: "5px" ,
@@ -29,18 +29,23 @@ const UserBox = styled(Box) (({theme}) => ({
     alignItems: "center"
 }));
 
-const Navbar = () => {
+const Navbar = ({set,setMenu}) => {
     const [open, setOpen] = useState(false);
     return(
         <AppBar position="sticky">
             <StyledToolbar>
+
             <Stack direction="row" justifyContent="space-evenly" alignItems="center" spacing={3}>
-            <MenuIcon />
+            <MenuIcon onClick={() => {
+                if(set===true) setMenu(false); else setMenu(true);
+            }}/>
+
             <Typography variant="h6" sx={{display:{xs:"none", sm:"block"}}}>
             Test Management Tool</Typography>
             <ContentPasteSearchIcon sx={ { display:{xs:"block", sm:"none"}} } />
             </Stack>
-            <Search ><InputBase placeholder="Search. .."/></Search>
+
+            <Search ><InputBase placeholder="Search..." fullWidth /> </Search>
 
             <Stack direction="row" justifyContent="flex-end" alignItems="center" spacing={3}>
 

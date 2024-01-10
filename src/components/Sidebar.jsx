@@ -9,10 +9,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-const Sidebar = () => {
+const Sidebar = ({set}) => {
     return(
         <Box flex={1} p={2} sx={{
-            display: {xs:"none", sm:"block"}
+          display: set === true ? {xs:"none", sm:"block"} : "none"
         }}>
 
         <List>
