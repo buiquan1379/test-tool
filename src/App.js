@@ -1,21 +1,17 @@
-import { useState } from "react";
-import Feed from "./components/Feed";
-import Navbar from "./components/Navbar";
-import Rightbar from "./components/Rightbar";
-import Sidebar from "./components/Sidebar";
-import { Box, Stack } from "@mui/material";
+import React from "react";
+import {Route, Routes} from "react-router-dom";
+import TestsPage from "./components/tests/Tests";
+import RunsPage from "./components/runs/Runs";
+import PlansPage from "./components/plans/Plans";
 
 function App() {
-  const [set, setMenu] = useState(false)
   return (
-    <Box>
-    <Navbar setMenu = {setMenu} set = {set} />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Sidebar set = {set} />
-        <Feed/>
-        <Rightbar/>
-      </Stack>
-    </Box>
+    <Routes>
+      <Route path="/" element={<TestsPage/>}/>
+      <Route path="/tests" element={<TestsPage/>}/>
+      <Route path="/runs" element={<RunsPage/>}/>
+      <Route path="/plans" element={<PlansPage/>}/>
+    </Routes>
   );
 }
 
