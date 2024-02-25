@@ -39,7 +39,7 @@ export default function PlansContent() {
         <Box sx={{display: "flex", flexDirection: "column", backgroundColor: "#f9fafb", minHeight: "100vh"}}>
             <Box sx={{display: "flex", width: "100%"}}>
                 <Box sx={{display: "flex", py: 2, flexGrow: 1}}>
-                    <Typography variant="h4" sx={{fontWeight: "bold", ml: 3}}>Project 1/ Plans</Typography>
+                    <Typography variant="h4" sx={{fontWeight: "bold", ml: 3}}>TestCafe Demo Project / Plans</Typography>
                     <Typography variant="span" sx={{my: "auto", ml: 3, color: "#878494"}}>3 plans</Typography>
                     <CustomButton variant="text" sx={{ml: 3}}><FilterAltIcon sx={{color: "black"}}/></CustomButton>
                     <TextField id="outlined-basic" variant="outlined" size="small" sx={{ml: 2}} placeholder="Search"
@@ -60,6 +60,7 @@ export default function PlansContent() {
                 <Typography sx={{px: 3, my: "auto", fontWeight: "bold", color: "#455060"}}>Manual 1</Typography>
                 <Typography sx={{px: 3, my: "auto", fontWeight: "bold", color: "#455060"}}>Automated 1</Typography>
                 <Typography sx={{px: 3, my: "auto", fontWeight: "bold", color: "#455060"}}>Mixed 1</Typography>
+                <Typography sx={{px: 3, my: "auto", fontWeight: "bold", color: "#9fa5ac"}}>Generated</Typography>
             </Box>
             <Divider/>
             <Box direction="column" justifyContent="flex-end" sx={{flexGrow: 1, overflowY: "auto", height: 0}}>

@@ -7,14 +7,16 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {styled} from "@mui/material/styles";
-import DoneIcon from '@mui/icons-material/Done';
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
-import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import EqualizerIcon from "@mui/icons-material/Equalizer";
-import FolderCopyIcon from "@mui/icons-material/FolderCopy";
+import HomeIcon from "@mui/icons-material/Home";
 import {Link} from "react-router-dom";
+import PlaylistAddCheckCircleIcon from '@mui/icons-material/PlaylistAddCheckCircle';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import ApiIcon from '@mui/icons-material/Api';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 const drawerWidth = 260;
 const drawerColor = "#3730a3";
@@ -109,15 +111,17 @@ export default function MSidebar(props) {
                 </IconButton>
             </DrawerHeader>
             <Divider/>
-            <List>
+
+            <List sx={{flexGrow: 1}}>
                 <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
                           key={"/tests"} component={Link} to={"/tests"} selected={selectedIndex === 0}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center"}}>
-                        <DoneIcon sx={{fontSize: 32}}/>
+                        <PlaylistAddCheckCircleIcon sx={{fontSize: 32}}/>
                     </ListItemIcon>
                     <ListItemText primary={"Tests"} secondary={"[SHIFT+1]"} sx={{opacity: open ? 1 : 0}}
                                   primaryTypographyProps={{fontWeight: "bold"}}/>
                 </ListItem>
+
                 <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
                           key={"/runs"} component={Link} to={"/runs"} selected={selectedIndex === 1}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
@@ -126,10 +130,12 @@ export default function MSidebar(props) {
                     <ListItemText primary={"Runs"} secondary={"[SHIFT+2]"} sx={{opacity: open ? 1 : 0}}
                                   primaryTypographyProps={{fontWeight: "bold"}}/>
                 </ListItem>
+
                 <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
                           key={"/plans"} component={Link} to={"/plans"} selected={selectedIndex === 2}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
-                        <PlaylistAddCheckIcon sx={{fontSize: 32}}/>
+                        <ReceiptLongIcon sx={{fontSize: 32}}/>
+                        
                     </ListItemIcon>
                     <ListItemText primary={"Plans"} secondary={"[SHIFT+3]"} sx={{opacity: open ? 1 : 0}}
                                   primaryTypographyProps={{fontWeight: "bold"}}/>
@@ -138,21 +144,42 @@ export default function MSidebar(props) {
                 <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
                           key={"/plans"} component={Link} to={"/plans"} selected={selectedIndex === 3}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
-                        {/* <PlaylistAddCheckIcon sx={{fontSize: 32}}/> */}
-                             <EqualizerIcon sx={{fontSize: 32}}/>      
+                        <ApiIcon sx={{fontSize: 32}}/>
                     </ListItemIcon>
-                    <ListItemText primary={"Reports"} secondary={"[SHIFT+4]"} sx={{opacity: open ? 1 : 0}}
+                    <ListItemText primary={"API Tests"} secondary={"[SHIFT+4]"} sx={{opacity: open ? 1 : 0}}
                                   primaryTypographyProps={{fontWeight: "bold"}}/>
                 </ListItem>
 
                 <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
                           key={"/plans"} component={Link} to={"/plans"} selected={selectedIndex === 4}>
                     <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
-                        <FolderCopyIcon sx={{fontSize: 32}}/>
+                        <AnalyticsIcon sx={{fontSize: 32}}/>
                     </ListItemIcon>
-                    <ListItemText primary={"Projects"} secondary={"[SHIFT+5]"} sx={{opacity: open ? 1 : 0}}
+                    <ListItemText primary={"Reports"} secondary={"[SHIFT+5]"} sx={{opacity: open ? 1 : 0}}
                                   primaryTypographyProps={{fontWeight: "bold"}}/>
                 </ListItem>
+
+                <ListItem sx={{minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,}}
+                          key={"/plans"} component={Link} to={"/plans"} selected={selectedIndex === 5}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
+                        <ImportExportIcon sx={{fontSize: 32}}/>
+                    </ListItemIcon>
+                    <ListItemText primary={"Import"} secondary={"[SHIFT+6]"} sx={{opacity: open ? 1 : 0}}
+                                  primaryTypographyProps={{fontWeight: "bold"}}/>
+                </ListItem>
+                
+                <ListItem sx={{
+                    minHeight: 64, justifyContent: open ? "initial" : "center", px: 2.5,
+                    position: "absolute", bottom: 0, width: "100%",
+                }}
+                          key={"/home"} component={Link} to={"/home"} selected={selectedIndex === -1}>
+                    <ListItemIcon sx={{minWidth: 0, mr: open ? 2 : "auto", justifyContent: "center",}}>
+                        <HomeIcon sx={{fontSize: 32}}/>
+                    </ListItemIcon>
+                    <ListItemText primary={"Home"} sx={{opacity: open ? 1 : 0}}
+                                  primaryTypographyProps={{fontWeight: "bold"}}/>
+                </ListItem>
+
             </List>
         </Drawer>
     );

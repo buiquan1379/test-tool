@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
 import {Chip, Divider, ListItem, Stack, SvgIcon} from "@mui/material";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -18,6 +17,7 @@ import {TreeView} from "@mui/x-tree-view/TreeView";
 import {TreeItem, treeItemClasses} from "@mui/x-tree-view/TreeItem";
 import LinearProgress, {linearProgressClasses} from "@mui/material/LinearProgress";
 import List from "@mui/material/List";
+import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
 
 const CustomButton = styled(Button)({
     textTransform: "none",
@@ -97,7 +97,7 @@ const StyledTreeItem = React.forwardRef(function StyledTreeItem(props, ref) {
         <StyledTreeItemRoot
             label={
                 <Box sx={{display: "flex", alignItems: "center", p: 0.5, pr: 0,}}>
-                    <Box component={LabelIcon} color={labelIconColor} sx={{mr: 1}}/>
+                    <Box component={LabelIcon} color={labelIconColor} sx={{mr: 1, fontSize: "inherit"}}/>
                     <Typography variant="body2" sx={{mr: 2}}>
                         {labelText}
                     </Typography>
@@ -205,13 +205,13 @@ export default function RunsContent() {
                         <StyledTreeItem nodeId="3" labelIcon={ExpandMoreIcon} labelIconColor="blue"
                                         labelText="delete created task" tags={["@filter", "@bulk", "@action", "@list"]}
                                         color="#a250f5" bgColor="#e8f0fe"/>
-                        <StyledTreeItem nodeId="4" labelIcon={AddIcon} labelText="mark created task as completed"
+                        <StyledTreeItem nodeId="4" labelIcon={PanoramaFishEyeIcon} labelText="mark created task as completed"
                                         tags={["@filter", "@bulk", "@action", "@list"]} color="#3c8039"
                                         bgColor="#e8f0fe"/>
                         <StyledTreeItem
-                            nodeId="5" labelIcon={AddIcon} labelText="edit created task"
+                            nodeId="5" labelIcon={PanoramaFishEyeIcon} labelText="edit created task"
                             tags={["@filter", "@bulk", "@action", "@list"]} color="#3c8039" bgColor="#e8f0fe"/>
-                        <StyledTreeItem nodeId="6" labelIcon={AddIcon} labelText="delete two tasks"
+                        <StyledTreeItem nodeId="6" labelIcon={PanoramaFishEyeIcon} labelText="delete two tasks"
                                         tags={["@filter", "@bulk", "@action", "@list"]} color="#3c8039"
                                         bgColor="#e8f0fe"/>
                     </TreeView>

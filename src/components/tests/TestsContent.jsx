@@ -12,14 +12,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
-import TuneIcon from "@mui/icons-material/Tune";
 import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import SyncIcon from "@mui/icons-material/Sync";
 import DownloadIcon from "@mui/icons-material/Download";
 import {Alert, Chip, Divider, Drawer, Tab, Tabs} from "@mui/material";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -31,8 +29,6 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RestoreIcon from '@mui/icons-material/Restore';
-import CodeIcon from '@mui/icons-material/Code';
-
 import {TreeView} from "@mui/x-tree-view/TreeView";
 import {TreeItem, treeItemClasses} from "@mui/x-tree-view/TreeItem";
 import Markdown from "react-markdown";
@@ -221,13 +217,12 @@ export default function TestsContent() {
                         </Typography>
                     </Box>
                     <Box sx={{display: "flex", mx: 3}}>
-                        <Chip size="small" label="@action" sx={{mx: 0.5}}/>
-                        
+                        <Chip size="small" label="@suite" sx={{mx: 0.5}}/>
+                        <Chip size="small" label="@task" sx={{mx: 0.5}}/>
                     </Box>
                     <Tabs value={rightTabIndex} onChange={handleRightIndexChange} sx={{mx: 3, my: 2}} scrollButtons
                           aria-label="scrollable force tabs example">
                         <MTab icon={<InfoOutlinedIcon/>} label="DESCRIPTION" iconPosition="start"/>
-                        <MTab icon={<CodeIcon/>} label="CODE TEMPLATE" iconPosition="start"/>
                         <MTab icon={<AttachFileOutlinedIcon/>} label="ATTACHMENTS" iconPosition="start"/>
                         <MTab icon={<PlayArrowIcon/>} label="RUNS" iconPosition="start"/>
                         <MTab icon={<RestoreIcon/>} label="HISTORY" iconPosition="start"/>
@@ -241,25 +236,18 @@ export default function TestsContent() {
                         <CustomTabPanel value={rightTabIndex} index={1}>
                             <Box sx={{color: "blue"}}>
                                 <Typography>
-                                    CODE TEMPLATE
+                                    ATTACHMENTS
                                 </Typography>
                             </Box>
                         </CustomTabPanel>
                         <CustomTabPanel value={rightTabIndex} index={2}>
                             <Box sx={{color: "blue"}}>
                                 <Typography>
-                                    ATTACHMENTS
-                                </Typography>
-                            </Box>
-                        </CustomTabPanel>
-                        <CustomTabPanel value={rightTabIndex} index={3}>
-                            <Box sx={{color: "blue"}}>
-                                <Typography>
                                     RUNS
                                 </Typography>
                             </Box>
                         </CustomTabPanel>
-                        <CustomTabPanel value={rightTabIndex} index={4}>
+                        <CustomTabPanel value={rightTabIndex} index={3}>
                             <Box sx={{color: "blue"}}>
                                 <Typography>
                                     HISTORY
@@ -274,7 +262,7 @@ export default function TestsContent() {
                     <Box sx={{display: "flex", py: 2, flexGrow: 1}}>
                         <Avatar variant="circular" sx={{mx: 3}}
                                 src={"https://app.testomat.io/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBWlU9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3cf559b4f9db8e904319d514f993751e23e0e5d0/testcafe_logo.jpg"}/>
-                        <Typography variant="h4" sx={{fontWeight: "bold"}}>Project 1</Typography>
+                        <Typography variant="h4" sx={{fontWeight: "bold"}}>TestCafe Demo Project</Typography>
                         <CustomButton variant="text" sx={{ml: 3}}><FilterAltIcon sx={{color: "black"}}/></CustomButton>
                         <TextField id="outlined-basic" variant="outlined" size="small" sx={{ml: 2}} placeholder="Search"
                                    InputProps={{
@@ -284,15 +272,15 @@ export default function TestsContent() {
                                            </InputAdornment>
                                        ),
                                    }}/>
-                        <Button variant="text" sx={{ml: 1}}><TuneIcon sx={{color: "black"}}/></Button>
                     </Box>
+
                     <Box sx={{display: "flex", p: 2}}>
                         <CustomActiveButton variant="contained" sx={{mr: 2}}><AddIcon
                             sx={{color: "white"}}/></CustomActiveButton>
-                        
                         <CustomButton variant="contained" sx={{mr: 2}}><MoreHorizIcon
                             sx={{color: "black"}}/></CustomButton>
                     </Box>
+
                 </Box>
                 <Box sx={{display: "flex", width: "100%"}}>
                     <Box sx={{display: "flex", py: 2, flexGrow: 1}}>
@@ -325,8 +313,8 @@ export default function TestsContent() {
                             defaultEndIcon={<div style={{width: 24}}/>}
                             sx={{flexGrow: 1, overflowY: "auto"}}
                         >
-                            <StyledTreeItem nodeId="1" labelText="Manual tests" labelIcon={Label}
-                                            tags={["@filter"]} labelIconColor={"green"}>
+                            <StyledTreeItem nodeId="1" labelText="Manual tests for TodoMVC" labelIcon={Label}
+                                            tags={["@action"]} labelIconColor={"green"}>
                                 <StyledTreeItem
                                     nodeId="2"
                                     labelIcon={BookmarkIcon}
@@ -334,7 +322,7 @@ export default function TestsContent() {
                                     labelText="filter all active tasks"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#1a73e8"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
@@ -346,7 +334,7 @@ export default function TestsContent() {
                                     labelText="create new task"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#e3742f"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
@@ -358,7 +346,7 @@ export default function TestsContent() {
                                     labelText="delete created task"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#a250f5"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
@@ -369,7 +357,7 @@ export default function TestsContent() {
                                     labelText="mark created task as completed"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
@@ -380,7 +368,7 @@ export default function TestsContent() {
                                     labelText="edit created task"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
@@ -391,7 +379,7 @@ export default function TestsContent() {
                                     labelText="delete two tasks"
                                     labelInfo="manual"
                                     labelInfoColor="#f59e0b"
-                                    tags={["@filter"]}
+                                    tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
                                     onClick={event => handleOpen(event, true)}
