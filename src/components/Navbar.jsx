@@ -4,6 +4,7 @@ import {useState} from "react";
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import Notifications from "@mui/icons-material/Notifications";
 import MenuIcon from '@mui/icons-material/Menu';
+import {useNavigate} from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -30,11 +31,16 @@ const UserBox = styled(Box)(({theme}) => ({
 }));
 
 const Navbar = ({set, setMenu}) => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
     const handleLogout = () => {
         localStorage.removeItem("user");
         window.location.reload();
+    }
+
+    const handleMenuClick = (path) => {
+        navigate(path);
     }
 
     return (
@@ -64,8 +70,8 @@ const Navbar = ({set, setMenu}) => {
                         onClose={(e) => setOpen(false)}
                         anchorOrigin={{vertical: "top", horizontal: "right"}}
                         transformOrigin={{vertical: "top", horizontal: "right"}}>
-                        <MenuItem>Profile</MenuItem>
-                        <MenuItem>Members</MenuItem>
+                        <MenuItem onClick={() => handleMenuClick("/profile")}>Profile</MenuItem>
+                        <MenuItem onClick={() => handleMenuClick("/members")}>Members</MenuItem>
                         <MenuItem onClick={handleLogout}>Log Out</MenuItem>
                     </Menu>
                 </Stack>

@@ -13,7 +13,7 @@ function App() {
         if (!user) {
             navigate("/signin");
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <Box>

@@ -10,14 +10,11 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from '@mui/icons-material/Close';
-import EditIcon from '@mui/icons-material/Edit';
 import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
 import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
 import SyncIcon from "@mui/icons-material/Sync";
 import DownloadIcon from "@mui/icons-material/Download";
 import {Alert, Chip, Divider, Drawer, Tab, Tabs} from "@mui/material";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -25,13 +22,10 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Label from "@mui/icons-material/Label";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import AttachFileOutlinedIcon from '@mui/icons-material/AttachFileOutlined';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import RestoreIcon from '@mui/icons-material/Restore';
 import {TreeView} from "@mui/x-tree-view/TreeView";
 import {TreeItem, treeItemClasses} from "@mui/x-tree-view/TreeItem";
-import Markdown from "react-markdown";
+import Manual from "./manual/Manual";
+import ManualSuite from "./manual/ManualSuite";
 
 const CustomButton = styled(Button)({
     textTransform: "none",
@@ -152,26 +146,12 @@ const StyledTreeItem = React.forwardRef(function StyledTreeItem(props, ref) {
 });
 
 export default function TestsContent() {
-    const [tabIndex, setTabIndex] = React.useState(0);
-    const [open, setOpen] = React.useState(false);
-    const [rightTabIndex, setRightTabIndex] = React.useState(0);
+    const defaultRootNodes = ["1", "8"];
+    const manualRootNodes = ["1", "8", "11"];
+    const automatedRootNodes = ["1", "4", "7", "10", "13", "16", "19", "22"];
 
-    const markdownContent = `
-### Steps
-* Open application
-* Choose backbone.js framework
-* Add regular task name
-* Add task name with unicode
-* Add task name with special symbols
-* Add long name
-* Check task name in list
-
-### Expected results
-* No error found
-* All strings accepted
-`
-
-    const handleOpen = (event, value) => {
+    const handleOpen = (event, value, component) => {
+        setDrawerComponent(component);
         setOpen(value);
     }
 
@@ -179,90 +159,89 @@ export default function TestsContent() {
         setTabIndex(newValue);
     }
 
-    const handleRightIndexChange = (event, newValue) => {
-        setRightTabIndex(newValue);
+    const handleDefaultToggle = (event, nodeIds) => {
+        let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+        if(iconClicked) {
+            setDefaultExpanded(nodeIds);
+        }
+    };
+
+    const handleDefaultSelect = (event, nodeId) => {
+        if (defaultRootNodes.includes(nodeId)) {
+            let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+            if (!iconClicked) {
+                setTitle(event.target.textContent);
+                handleOpen(event, true, <ManualSuite handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+            }
+        } else {
+            setTitle(event.target.textContent);
+            handleOpen(event, true, <Manual handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+        }
     }
+
+    const handleManualToggle = (event, nodeIds) => {
+        let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+        if(iconClicked) {
+            setManualExpanded(nodeIds);
+        }
+    };
+
+    const handleManualSelect = (event, nodeId) => {
+        if (manualRootNodes.includes(nodeId)) {
+            let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+            if (!iconClicked) {
+                setTitle(event.target.textContent);
+                handleOpen(event, true, <ManualSuite handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+            }
+        } else {
+            setTitle(event.target.textContent);
+            handleOpen(event, true, <Manual handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+        }
+    }
+
+    const handleAutomatedToggle = (event, nodeIds) => {
+        let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+        if(iconClicked) {
+            setAutomatedExpanded(nodeIds);
+        }
+    };
+
+    const handleAutomatedSelect = (event, nodeId) => {
+        if (automatedRootNodes.includes(nodeId)) {
+            let iconClicked = event.target.closest(".MuiTreeItem-iconContainer")
+            if (!iconClicked) {
+                setTitle(event.target.textContent);
+                handleOpen(event, true, <ManualSuite handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+            }
+        } else {
+            setTitle(event.target.textContent);
+            handleOpen(event, true, <Manual handleClose={handleTestDetailClose} title={event.target.textContent}/>);
+        }
+    }
+
+    const handleTestDetailClose = (event) => {
+        handleOpen(event, false, <div/>);
+    }
+
+    const [tabIndex, setTabIndex] = React.useState(-1);
+    const [open, setOpen] = React.useState(false);
+    const [defaultExpanded, setDefaultExpanded] = React.useState([]);
+    const [manualExpanded, setManualExpanded] = React.useState(manualRootNodes);
+    const [automatedExpanded, setAutomatedExpanded] = React.useState(automatedRootNodes);
+    const [title, setTitle] = React.useState("test title");
+    const [drawerComponent, setDrawerComponent] = React.useState(<Manual handleClose={handleTestDetailClose} title={title}/>);
 
     return (
         <div>
             <Drawer anchor={"right"} open={open}>
-                <Box sx={{minWidth: "500px", width: "40vw", display: "flex", flexDirection: "column"}}>
-                    <Box sx={{display: "flex", p: 1, mx: 2, mt: 2}}>
-                        <Box sx={{flexGrow: 1, display: "flex"}}>
-                            <LibraryAddCheckIcon sx={{my: "auto", mx: 1}}/>
-                            <Typography sx={{display: "flex", my: "auto", ml: 1}} color="inherit">
-                                <BookmarkIcon sx={{mr: 0.5, my: "auto", color: "green"}} fontSize="inherit"/>
-                                Manual tests
-                            </Typography>
-                            <KeyboardArrowRightIcon sx={{my: "auto", mx: 0.5}}/>
-                            <Typography sx={{display: 'flex', my: "auto"}} color="inherit">
-                                Test @Abc13579
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <CustomButton variant="contained" startIcon={<EditIcon/>}
-                                          sx={{backgroundColor: "#eef2ff", color: "black", textTransform: "none", mr: 2}}>
-                                Edit
-                            </CustomButton>
-                            <CustomButton variant="contained" sx={{}} onClick={event => handleOpen(event, false)}>
-                                <CloseIcon sx={{color: "red"}}/>
-                            </CustomButton>
-                        </Box>
-                    </Box>
-                    <Divider/>
-                    <Box sx={{display: "flex", m: 3}}>
-                        <Typography variant="h6" sx={{display: "flex", my: "auto", ml: 1}} color="inherit">
-                            <ExpandLessIcon sx={{mr: 0.5, my: "auto", color: "red"}} fontSize="inherit"/>
-                            create new task
-                        </Typography>
-                    </Box>
-                    <Box sx={{display: "flex", mx: 3}}>
-                        <Chip size="small" label="@suite" sx={{mx: 0.5}}/>
-                        <Chip size="small" label="@task" sx={{mx: 0.5}}/>
-                    </Box>
-                    <Tabs value={rightTabIndex} onChange={handleRightIndexChange} sx={{mx: 3, my: 2}} scrollButtons
-                          aria-label="scrollable force tabs example">
-                        <MTab icon={<InfoOutlinedIcon/>} label="DESCRIPTION" iconPosition="start"/>
-                        <MTab icon={<AttachFileOutlinedIcon/>} label="ATTACHMENTS" iconPosition="start"/>
-                        <MTab icon={<PlayArrowIcon/>} label="RUNS" iconPosition="start"/>
-                        <MTab icon={<RestoreIcon/>} label="HISTORY" iconPosition="start"/>
-                    </Tabs>
-                    <Box sx={{flexGrow: 1}}>
-                        <CustomTabPanel value={rightTabIndex} index={0}>
-                            <Box>
-                                <Markdown>{markdownContent}</Markdown>
-                            </Box>
-                        </CustomTabPanel>
-                        <CustomTabPanel value={rightTabIndex} index={1}>
-                            <Box sx={{color: "blue"}}>
-                                <Typography>
-                                    ATTACHMENTS
-                                </Typography>
-                            </Box>
-                        </CustomTabPanel>
-                        <CustomTabPanel value={rightTabIndex} index={2}>
-                            <Box sx={{color: "blue"}}>
-                                <Typography>
-                                    RUNS
-                                </Typography>
-                            </Box>
-                        </CustomTabPanel>
-                        <CustomTabPanel value={rightTabIndex} index={3}>
-                            <Box sx={{color: "blue"}}>
-                                <Typography>
-                                    HISTORY
-                                </Typography>
-                            </Box>
-                        </CustomTabPanel>
-                    </Box>
-                </Box>
+                {drawerComponent}
             </Drawer>
             <Box sx={{display: "flex-inline", backgroundColor: "#f9fafb", minHeight: "100vh"}}>
                 <Box sx={{display: "flex", width: "100%"}}>
                     <Box sx={{display: "flex", py: 2, flexGrow: 1}}>
                         <Avatar variant="circular" sx={{mx: 3}}
                                 src={"https://app.testomat.io/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBWlU9IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--3cf559b4f9db8e904319d514f993751e23e0e5d0/testcafe_logo.jpg"}/>
-                        <Typography variant="h4" sx={{fontWeight: "bold"}}>TestCafe Demo Project</Typography>
+                        <Typography variant="h4" sx={{fontWeight: "bold"}}>TestCafe Demo Project / Tests</Typography>
                         <CustomButton variant="text" sx={{ml: 3}}><FilterAltIcon sx={{color: "black"}}/></CustomButton>
                         <TextField id="outlined-basic" variant="outlined" size="small" sx={{ml: 2}} placeholder="Search"
                                    InputProps={{
@@ -303,11 +282,119 @@ export default function TestsContent() {
                     </Box>
                 </Box>
                 <Divider sx={{mb: 3}}/>
+                <CustomTabPanel value={tabIndex} index={-1}>
+                    <Box sx={{color: "red"}}>
+                        <TreeView
+                            expanded={defaultExpanded}
+                            onNodeToggle={handleDefaultToggle}
+                            onNodeSelect={handleDefaultSelect}
+                            aria-label="manual"
+                            defaultCollapseIcon={<ArrowDropDownIcon/>}
+                            defaultExpandIcon={<ArrowRightIcon/>}
+                            defaultEndIcon={<div style={{width: 24}}/>}
+                            sx={{flexGrow: 1, overflowY: "auto"}}
+                        >
+                            <StyledTreeItem nodeId="1" labelText="Manual tests for TodoMVC" labelIcon={Label}
+                                            tags={["@action"]} labelIconColor={"#f59e0b"}>
+                                <StyledTreeItem
+                                    nodeId="2"
+                                    labelIcon={BookmarkIcon}
+                                    labelIconColor="red"
+                                    labelText="filter all active tasks"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#1a73e8"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="3"
+                                    labelIcon={ExpandLessIcon}
+                                    labelIconColor="red"
+                                    labelText="create new task"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#e3742f"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="4"
+                                    labelIcon={ExpandMoreIcon}
+                                    labelIconColor="blue"
+                                    labelText="delete created task"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#a250f5"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="5"
+                                    labelIcon={PanoramaFishEyeIcon}
+                                    labelText="mark created task as completed"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#3c8039"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="6"
+                                    labelIcon={PanoramaFishEyeIcon}
+                                    labelText="edit created task"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#3c8039"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="7"
+                                    labelIcon={PanoramaFishEyeIcon}
+                                    labelText="delete two tasks"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#3c8039"
+                                    bgColor="#e8f0fe"
+                                />
+                            </StyledTreeItem>
+                            <StyledTreeItem nodeId="8" labelText="Tests" labelIcon={Label}
+                                            tags={["@action"]} labelIconColor={"#a78bfa"}>
+                                <StyledTreeItem
+                                    nodeId="9"
+                                    labelIcon={BookmarkIcon}
+                                    labelIconColor="red"
+                                    labelText="filter all active tasks"
+                                    labelInfo="automated"
+                                    labelInfoColor="#a78bfa"
+                                    tags={["@action"]}
+                                    color="#1a73e8"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="10"
+                                    labelIcon={ExpandLessIcon}
+                                    labelIconColor="red"
+                                    labelText="create new task"
+                                    labelInfo="automated"
+                                    labelInfoColor="#a78bfa"
+                                    tags={["@action"]}
+                                    color="#e3742f"
+                                    bgColor="#e8f0fe"
+                                />
+                            </StyledTreeItem>
+                        </TreeView>
+                    </Box>
+                </CustomTabPanel>
                 <CustomTabPanel value={tabIndex} index={0}>
                     <Box sx={{color: "red"}}>
                         <TreeView
+                            expanded={manualExpanded}
+                            onNodeToggle={handleManualToggle}
+                            onNodeSelect={handleManualSelect}
                             aria-label="manual"
-                            defaultExpanded={["1"]}
                             defaultCollapseIcon={<ArrowDropDownIcon/>}
                             defaultExpandIcon={<ArrowRightIcon/>}
                             defaultEndIcon={<div style={{width: 24}}/>}
@@ -325,7 +412,6 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#1a73e8"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
                                 />
                                 <StyledTreeItem
                                     nodeId="3"
@@ -337,7 +423,6 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#e3742f"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
                                 />
                                 <StyledTreeItem
                                     nodeId="4"
@@ -349,7 +434,6 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#a250f5"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
                                 />
                                 <StyledTreeItem
                                     nodeId="5"
@@ -360,7 +444,6 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
                                 />
                                 <StyledTreeItem
                                     nodeId="6"
@@ -371,7 +454,6 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
                                 />
                                 <StyledTreeItem
                                     nodeId="7"
@@ -382,7 +464,56 @@ export default function TestsContent() {
                                     tags={["@action"]}
                                     color="#3c8039"
                                     bgColor="#e8f0fe"
-                                    onClick={event => handleOpen(event, true)}
+                                />
+                            </StyledTreeItem>
+                            <StyledTreeItem nodeId="8" labelText="Manual tests for TodoMVC 1" labelIcon={Label}
+                                            tags={["@action"]} labelIconColor={"green"}>
+                                <StyledTreeItem
+                                    nodeId="9"
+                                    labelIcon={BookmarkIcon}
+                                    labelIconColor="red"
+                                    labelText="filter all active tasks"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#1a73e8"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="10"
+                                    labelIcon={ExpandLessIcon}
+                                    labelIconColor="red"
+                                    labelText="create new task"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#e3742f"
+                                    bgColor="#e8f0fe"
+                                />
+                            </StyledTreeItem>
+                            <StyledTreeItem nodeId="11" labelText="Manual tests for TodoMVC 2" labelIcon={Label}
+                                            tags={["@action"]} labelIconColor={"green"}>
+                                <StyledTreeItem
+                                    nodeId="12"
+                                    labelIcon={BookmarkIcon}
+                                    labelIconColor="red"
+                                    labelText="filter all active tasks"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#1a73e8"
+                                    bgColor="#e8f0fe"
+                                />
+                                <StyledTreeItem
+                                    nodeId="13"
+                                    labelIcon={ExpandLessIcon}
+                                    labelIconColor="red"
+                                    labelText="create new task"
+                                    labelInfo="manual"
+                                    labelInfoColor="#f59e0b"
+                                    tags={["@action"]}
+                                    color="#e3742f"
+                                    bgColor="#e8f0fe"
                                 />
                             </StyledTreeItem>
                         </TreeView>
@@ -391,8 +522,10 @@ export default function TestsContent() {
                 <CustomTabPanel value={tabIndex} index={1}>
                     <Box sx={{color: "blue"}}>
                         <TreeView
+                            expanded={automatedExpanded}
+                            onNodeToggle={handleAutomatedToggle}
+                            onNodeSelect={handleAutomatedSelect}
                             aria-label="automated"
-                            defaultExpanded={["1", "4", "7", "10", "13", "16", "19", "22"]}
                             defaultCollapseIcon={<ArrowDropDownIcon/>}
                             defaultExpandIcon={<ArrowRightIcon/>}
                             defaultEndIcon={<div style={{width: 24}}/>}
