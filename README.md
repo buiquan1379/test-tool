@@ -11,13 +11,13 @@ Quy trình quản lí kiểm thử chung
 
 This proposed general process is based on STLC and BDD, considerably enhanced the  rapid and effectiveness of test management.
 
-![The proposed process](Proposed-pipeline.png)
+![The proposed process](/assets/Proposed-pipeline.png)
 The proposed process of managing both 2 types of tests.
 ### 1.2. Cucumber-based pipeline
 Quy trình kiểm thử khi áp dụng với Cucumber framework
 
 The proposed process utilized with Cucumber contains 5 stages of manual testing and 3 stages of automated testing.
-![The proposed process](Proposed-pipeline_cucumber.png)
+![The proposed process](/assets/Proposed-pipeline_cucumber.png)
 ## 2. Technology
 Công nghệ sử dụng
 
@@ -51,15 +51,15 @@ Install dependencies:
     ```
 ### 3.3. Database
 Required Installation: MySQL
-The SQL file for database creation: [test-tool.sql](test-tool.sql)\
+The SQL file for database creation: [test-tool.sql](/assets/test-tool.sql)\
 The Database Diagram and ER Diagram:
-![](DB-TestTool.png)
-![](TestTool-ERD.png)
+![](/assets/DB-TestTool.png)
+![](/assets/TestTool-ERD.png)
 ## 4. Main features
-These are key functions represented by 8 captured screen pictures, including CRUD Project, Import Cucumber file, Test execution, Test report, Test case Management, Continue executing test case, Finish test execution and Test case Creation.
-![](feature-create-test.png)
-![](feature-finish.png)
-![](feature-managetest.png)
-![](feature-project.png)
-![](feature-report.png)
-![](feature-testcase.png)
+These are key functions represented by some captured screen pictures, including CRUD Project, Import Cucumber file, Test execution, Test report, Test case Management, Continue executing test case, Finish test execution and Test case Creation.
+![](/assets/feature-create-test.png)
+![](/assets/feature-finish.png)
+![](/assets/feature-managetest.png)
+![](/assets/feature-project.png)
+![](/assets/feature-report.png)
+![](/assets/feature-testcase.png)
